@@ -45,6 +45,29 @@ class Channel:
         our_dict = self.__dict__
         del our_dict['channel']
         with open(filename, 'w') as file:
-            json.dump(our_dict, file,  indent=2, ensure_ascii=False)
+            json.dump(our_dict, file, indent=2, ensure_ascii=False)
 
+    def __str__(self):
+        return f"{self.title} - {self.url}"
+
+    def __add__(self, other):
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __gt__(self, other):
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __ge__(self, other):
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __lt__(self, other):
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __le__(self, other):
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        return int(self.subscriber_count) == int(other.subscriber_count)
 
