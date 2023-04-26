@@ -21,10 +21,16 @@ class Video:
         """Экземпляр инициализируется id видео. Дальше все данные будут подтягиваться по API."""
         self.video_id = video_id
         self.video_response = YouTube.video_response(self.video_id)
-        self.video_title = self.video_response['items'][0]['snippet']['title']
-        self.view_count = self.video_response['items'][0]['statistics']['viewCount']
-        self.like_count = self.video_response['items'][0]['statistics']['likeCount']
-        self.video_url = f'https://youtu.be/{self.video_id}'
+        try:
+            self.video_title = self.video_response['items'][0]['snippet']['title']
+            self.view_count = self.video_response['items'][0]['statistics']['viewCount']
+            self.like_count = self.video_response['items'][0]['statistics']['likeCount']
+            self.video_url = f'https://youtu.be/{self.video_id}'
+        except IndexError:
+            self.video_title = None
+            self.video_url = None
+            self.view_count = None
+            self.like_count = None
 
     def get_duration(self) -> datetime.timedelta:
         """Метод получения длительности одного видео"""
